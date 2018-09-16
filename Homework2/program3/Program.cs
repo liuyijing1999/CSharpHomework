@@ -12,7 +12,7 @@ namespace program3
         {
             int[] a = new int[99];
             int i;
-            Console.WriteLine("素数有：");
+            Console.WriteLine("素数有:");
             for (i=0;i<99;i++)
             {
                 a[i] = i + 2;
