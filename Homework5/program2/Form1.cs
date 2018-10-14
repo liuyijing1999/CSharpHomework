@@ -44,9 +44,11 @@ namespace program2
             double x2 = x0 + leng * k *Math.Cos(th);
             double y2 = y0 + leng * k* Math.Sin(th);
             drawLine(x0, y0, x1, y1);
-
+            drawLine(x0, y0, x2, y2);
             drawCayleyTree(n - 1, x1, y1, per1 * leng, th + th1);
-            drawCayleyTree(n - 1, x1, y1, per2 * leng, th - th2);
+            //drawCayleyTree(n - 1, x1, y1, per2 * leng, th - th2);
+            //drawCayleyTree(n - 1, x2, y2, per1 * leng, th + th1);
+            drawCayleyTree(n - 1, x2, y2, per2 * leng, th - th2);
         }
         void drawLine(double x0, double y0, double x1, double y1)
         {
