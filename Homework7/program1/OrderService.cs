@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,16 +17,7 @@ namespace program1
         public void Add(Order order)
         {
             try
-            {
-                //Console.WriteLine("请输入订单号:");
-                //string number1 = Console.ReadLine();
-                //Console.WriteLine("请输入商品名称:");
-                //string name1 = Console.ReadLine();
-                //Console.WriteLine("请输入客户:");
-                //string client1 = Console.ReadLine();
-                //Console.WriteLine("请输入价格:");
-                //double price1 = Convert.ToDouble(Console.ReadLine());
-                //Order order = new Order(number1, name1, client1, price1);
+            {              
                 if (list.Contains(order))
                 {
                     throw new Exception($"order-{order} is already existed!");
@@ -46,21 +35,7 @@ namespace program1
             Console.WriteLine("本次添加操作结束");
         }
         public void Delete(Order order)
-        {
-            //Console.WriteLine("请输入要删除的订单号:");
-            //string number = Console.ReadLine();
-            //int j = list.Count;
-            //int k = list.Count;
-            //for (int i = 0; i < list.Count; i++)
-            //{
-            //    if (list[i].Number.Equals(number))
-            //    {
-            //        Console.WriteLine(list[i].Number + " " + list[i].Name + " " + list[i].Client + " " + list[i].Price);
-
-            //        list.Remove(list[i]);
-            //        j = j - 1;
-            //    }
-            //}
+        {           
             list.Remove(order);
             if (list.Contains(order) == false)
             {
@@ -68,7 +43,7 @@ namespace program1
             }
             Console.WriteLine("本次删除操作结束");
         }
-        public void Change(Order order,Order newOrder)
+        public void Change(Order order, Order newOrder)
         {
             try
             {
@@ -84,7 +59,7 @@ namespace program1
                 //        j = j - 1;
                 //    }
                 //}
-                //if (list.Contains(order)==false)
+                //if (j == list.Count)
                 //{
                 //    throw new Exception($"未找到此订单");
                 //}
@@ -97,9 +72,9 @@ namespace program1
                 //list[i - 1].Name = name;
                 //list[i - 1].Client = client;
                 //list[i - 1].Price = price;
+                //Console.WriteLine(list[i - 1].Number + " " + list[i - 1].Name + " " + list[i - 1].Client + " " + list[i - 1].Price);
                 Delete(order);
                 Add(newOrder);
-                //Console.WriteLine(order.Number + " " + order.Name + " " + order.Client + " " + order.Price);
             }
             catch (System.IndexOutOfRangeException e)
             {
@@ -109,32 +84,27 @@ namespace program1
         }
         public void Inquiry(int method, string information)
         {
-
             if (method == 1)
             {
                 var m = from order in list where order.Number == information select order;
                 foreach (var order in m)
                 {
                     Console.WriteLine(order.Number + " " + order.Name + " " + order.Client + " " + order.Price);
-                    order1= order;         
+                    order1 = order;
                 }
                 if (m.Count() == 0)
-                {
                     Console.WriteLine("无查询结果");
-
-                }
             }
             else if (method == 2)
             {
                 var m = from order in list where order.Name == information select order;
                 foreach (var order in m)
                 {
-                    Console.WriteLine(order.Number + " " + order.Name + " " + order.Client + " " + order.Price);                 
+                    Console.WriteLine(order.Number + " " + order.Name + " " + order.Client + " " + order.Price);
+                    order2 = order;
                 }
                 if (m.Count() == 0)
-                {
                     Console.WriteLine("无查询结果");
-                }
             }
             else if (method == 3)
             {
@@ -145,9 +115,7 @@ namespace program1
                     order3 = order;
                 }
                 if (m.Count() == 0)
-                {
                     Console.WriteLine("无查询结果");
-                }
             }
             else if (method == 4)
             {
@@ -158,9 +126,7 @@ namespace program1
                     order4 = order;
                 }
                 if (m.Count() == 0)
-                {
                     Console.WriteLine("无查询结果");
-                }
             }
         }
         public void Print()
@@ -177,24 +143,6 @@ namespace program1
             }
             if (m.Count() == 0)
                 Console.WriteLine("没有订单金额大于1万的订单");
-        }
-
-        public static void XmlSerialize(XmlSerializer ser, string fileName, object obj)
-        {
-            FileStream fs = new FileStream(fileName, FileMode.Create);
-            ser.Serialize(fs, obj);
-            fs.Close();
-        }
-        public static void Export(List<Order> list)
-        {
-            XmlSerializer xmlser = new XmlSerializer(typeof(List<Order>));
-            String xmlFileNmae = "s.xml";
-            XmlSerialize(xmlser, xmlFileNmae, list);
-        }
-        public static void Import( string xmlFileName)
-        {
-            string xml = File.ReadAllText(xmlFileName);
-            Console.WriteLine(xml);
         }
     }
 }
