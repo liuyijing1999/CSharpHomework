@@ -31,7 +31,7 @@ namespace WindowsForms1
 
         public void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         public void label2_Click(object sender, EventArgs e)
@@ -66,13 +66,20 @@ namespace WindowsForms1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string Number = textBox1.Text;
-            string Name = textBox2.Text;
-            string Client = textBox3.Text;
-            double Price = Double.Parse(textBox4.Text);
-            Order order = new Order(Number, Name, Client, Price);
             Form1 f = new Form1();
-            f.list.Add(order);
+            if (textBox1.Text == null)
+            {
+                textBox1.Text = "订单号不能为空";
+            }
+            else
+            {
+                string Number = textBox1.Text;
+                string Name = textBox2.Text;
+                string Client = textBox3.Text;
+                double Price = Double.Parse(textBox4.Text);
+                Order order = new Order(Number, Name, Client, Price);             
+                f.list.Add(order);
+            }        
             for (int i = 0; i < f.list.Count; i++)
             {
                 textBox5.Text += f.list[i].Number + " " + f.list[i].Name + " " + f.list[i].Client + " " + f.list[i].Price + "\r\n";
